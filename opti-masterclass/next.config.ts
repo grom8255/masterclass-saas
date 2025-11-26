@@ -1,11 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-    images: {
+  images: {
     domains: ['res.cloudinary.com'],
     loader: 'custom',
     loaderFile: './lib/image/loader.ts',
-  }
-};
+  },
+}
 
-export default nextConfig;
+export default nextConfig

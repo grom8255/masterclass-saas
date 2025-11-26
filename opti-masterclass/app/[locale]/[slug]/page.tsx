@@ -1,9 +1,37 @@
 // app/[locale]/[slug]/page.tsx
-import ContentAreaMapper from '@/components/content-area/mapper';
-import { optimizely } from '@/lib/optimizely/fetch';
-import { getValidLocale } from '@/lib/optimizely/utils/language';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+import ContentAreaMapper from '@/components/content-area/mapper'
+import { optimizely } from '@/lib/optimizely/fetch'
+import {
+  getValidLocale,
+  mapPathWithoutLocale,
+} from '@/lib/optimizely/utils/language'
+import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
+
+export async function generateStaticParams() {
+  try {
+    const pageTypes = ['CMSPage']
+    const pathsResp = await optimizely.AllPages({ pageType: pageTypes })
+    const paths = pathsResp.data?._Content?.items ?? []
+    const filterPaths = paths.filter(
+      (path) => path && path._metadata?.url?.default !== null
+    )
+    const uniquePaths = new Set<string>()
+    filterPaths.forEach((path) => {
+      const cleanPath = mapPathWithoutLocale(
+        path?._metadata?.url?.default ?? ''
+      )
+      uniquePaths.add(cleanPath)
+    })
+
+    return Array.from(uniquePaths).map((slug) => ({
+      slug,
+    }))
+  } catch (e) {
+    console.error(e)
+    return []
+  }
+}
 
 export default async function CmsPage(props: {
   params: Promise<{ locale: string; slug?: string }>

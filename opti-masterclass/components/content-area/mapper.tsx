@@ -1,15 +1,16 @@
 // components/content-area/mapper.tsx
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-import Block from './block';
+import Block from './block'
 
 function ContentAreaMapper({
   blocks,
-  preview = false
+  preview = false,
 }: {
-  blocks?: any[] | null;
-  preview?: boolean;
+  blocks?: any[] | null
+  preview?: boolean
 }) {
-  if (!blocks || blocks.length === 0) return null;
+  if (!blocks || blocks.length === 0) return null
 
   return (
     <>
@@ -20,12 +21,12 @@ function ContentAreaMapper({
           props={{
             ...props,
             isFirst: index === 0,
-            preview
+            preview,
           }}
         />
       ))}
     </>
-  );
+  )
 }
 
-export default ContentAreaMapper;
+export default ContentAreaMapper
