@@ -3,15 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type React from 'react' // Import React
 import Image from 'next/image'
 
-interface Service {
-  title: string
-  description: string
-  icon?: string
-}
-
-interface ServicesBlockProps {
-  services: Service[]
-}
+import {
+  ServicesBlock as ServicesBlockProps,
+  ServiceItem,
+} from '@/lib/optimizely/types/generated'
+import { castContent } from '@/lib/optimizely/types/typeUtils'
 
 export default function ServicesBlock({ services }: ServicesBlockProps) {
   return (

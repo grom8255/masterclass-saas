@@ -1,11 +1,5 @@
 // components\block\hero-block.tsx
-interface HeroBlockProps {
-  title: string
-  subtitle?: string
-  showDecoration?: boolean
-  decorationColorsPrimary?: string
-  decorationColorsSecondary?: string
-}
+import { HeroBlock as HeroBlockProps } from '@/lib/optimizely/types/generated'
 
 export default function HeroBlock({
   title,

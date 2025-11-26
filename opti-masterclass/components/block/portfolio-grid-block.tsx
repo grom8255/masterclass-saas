@@ -3,17 +3,12 @@ import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import Link from 'next/link'
 
-interface PortfolioItem {
-  title: string
-  description: string
-  imageUrl: string
-  link: string
-}
+import {
+  PortfolioGridBlock as PortfolioGridBlockProps,
+  PortfolioItemBlock,
+} from '@/lib/optimizely/types/generated'
 
-interface PortfolioGridBlockProps {
-  title: string
-  items: PortfolioItem[]
-}
+import { castContent } from '@/lib/optimizely/types/typeUtils'
 
 export default function PortfolioGridBlock({
   title,

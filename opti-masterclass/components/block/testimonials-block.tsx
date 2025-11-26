@@ -2,17 +2,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-interface Testimonial {
-  name: string
-  position: string
-  content: string
-  avatarSrc?: string
-}
-
-interface TestimonialsBlockProps {
-  title: string
-  testimonials: Testimonial[]
-}
+import {
+  TestimonialsBlock as TestimonialsBlockProps,
+  TestimonialItemBlock,
+} from '@/lib/optimizely/types/generated'
+import { castContent } from '@/lib/optimizely/types/typeUtils'
 
 export default function TestimonialsBlock({
   title,

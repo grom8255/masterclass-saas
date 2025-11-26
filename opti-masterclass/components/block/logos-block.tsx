@@ -1,20 +1,18 @@
 //components\block\logos-block.tsx
 import Image from 'next/image'
 
-interface Logo {
-  src: string
-  alt: string
-}
+import {
+  LogosBlock as LogosBlockProps,
+  LogoItemBlock,
+} from '@/lib/optimizely/types/generated'
 
-interface LogosBlockProps {
-  logos: Logo[]
-}
+import { castContent } from '@/lib/optimizely/types/typeUtils'
 
 export default function LogosBlock({ logos }: LogosBlockProps) {
   return (
     <section className="container mx-auto px-4 py-16">
       <div className="flex flex-wrap justify-center gap-12">
-        {logos.map((logo, index) => (
+        {logos?.map((logo, index) => (
           <div key={index} className="flex items-center">
             <Image
               src={logo.src || '/placeholder.svg'}
