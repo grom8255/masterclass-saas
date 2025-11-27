@@ -14,8 +14,8 @@ export default function ContactBlock({
     <section className="container mx-auto px-4 py-16">
       <Card className="mx-auto max-w-xl">
         <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <p className="text-muted-foreground">{description}</p>
+          <CardTitle data-epi-edit="title">{title}</CardTitle>
+          <p data-epi-edit="title" className="text-muted-foreground">{description}</p>
         </CardHeader>
         <CardContent>
           <form className="space-y-6">
