@@ -1,4 +1,4 @@
-﻿// middleware.ts
+﻿// proxy.ts
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/optimizely/utils/language'
 import { createUrl, leadingSlashUrlPath } from '@/lib/utils'
 import type { NextRequest } from 'next/server'
@@ -85,7 +85,7 @@ function updateLocaleCookies(
   }
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   let response = NextResponse.next()
 

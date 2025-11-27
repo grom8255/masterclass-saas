@@ -1,5 +1,3 @@
-# // lib/optimizely/queries/draft/GetContentByKeyAndVersion.graphql
-
 query GetContentByKeyAndVersion($key: String, $ver: String) {
   _Content(where: { _metadata: { key: { eq: $key }, version: { eq: $ver } } }) {
     item {

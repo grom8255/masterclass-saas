@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-
 import { ContactBlock as ContactBlockProps } from '@/lib/optimizely/types/generated'
 
 export default function ContactBlock({
@@ -15,7 +14,7 @@ export default function ContactBlock({
       <Card className="mx-auto max-w-xl">
         <CardHeader>
           <CardTitle data-epi-edit="title">{title}</CardTitle>
-          <p data-epi-edit="title" className="text-muted-foreground">
+          <p data-epi-edit="description" className="text-muted-foreground">
             {description}
           </p>
         </CardHeader>

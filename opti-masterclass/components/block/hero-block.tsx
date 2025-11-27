@@ -10,9 +10,9 @@ export default function HeroBlock({
 }: HeroBlockProps) {
   return (
     <section className="relative container mx-auto px-4 pt-20 pb-16">
-      <h1 className="mb-4 max-w-xl text-4xl font-bold md:text-6xl">{title}</h1>
+      <h1 data-epi-edit="title" className="mb-4 max-w-xl text-4xl font-bold md:text-6xl">{title}</h1>
       {subtitle && (
-        <p className="text-muted-foreground mb-8 max-w-xl text-xl">
+        <p data-epi-edit="subtitle" className="text-muted-foreground mb-8 max-w-xl text-xl">
           {subtitle}
         </p>
       )}

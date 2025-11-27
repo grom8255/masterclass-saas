@@ -1,5 +1,3 @@
-# lib/optimizely/queries/draft/GetPreviewPageByUrl.graphql
-
 query getPreviewPageByURL(
   $locales: [Locales]
   $slug: String

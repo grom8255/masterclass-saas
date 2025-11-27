@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '@/app/globals.css'
 import { LOCALES } from '@/lib/optimizely/utils/language'
@@ -23,8 +22,6 @@ export function generateStaticParams() {
     return []
   }
 }
-
-// app/[locale]/layout.tsx
 
 export default async function RootLayout({
   children,

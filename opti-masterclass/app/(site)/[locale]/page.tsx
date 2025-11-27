@@ -11,7 +11,7 @@ export async function generateMetadata(props: {
   const { locale } = await props.params
   const locales = getValidLocale(locale)
   const pageResp = await optimizely.GetStartPage({ locales })
-  const page = pageResp.data?.StartPage?.items
+  const page = pageResp.data?.StartPage?.item
   if (!page) {
     return {}
   }
