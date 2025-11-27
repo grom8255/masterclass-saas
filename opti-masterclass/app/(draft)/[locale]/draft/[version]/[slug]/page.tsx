@@ -12,6 +12,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function CmsPage(props: {
   params: Promise<{ locale: string; version: string; slug?: string }>
+  searchParams: Promise<{ token: string }>
 }) {
   const isDraftModeEnabled = await checkDraftMode()
   if (!isDraftModeEnabled) {
@@ -19,12 +20,13 @@ export default async function CmsPage(props: {
   }
 
   const { locale, slug = '', version } = await props.params
+  const { token } = await props.searchParams
   const locales = getValidLocale(locale)
   const formattedSlug = `/${slug}`
 
   const pageResponse = await optimizely.getPreviewPageByURL(
     { locales, slug: formattedSlug, version },
-    { preview: true }
+    { preview: true, previewToken: token }
   )
   const page = pageResponse.data?.CMSPage?.item
 

@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
   const response = await optimizely.GetContentByKeyAndVersion(
     { key, ver },
-    { preview: true }
+    { preview: true, previewToken: token }
   )
 
   if (response.errors) {
@@ -55,5 +55,5 @@ export async function GET(request: NextRequest) {
     newUrl = `/${loc}/draft/${ver}/${hierarchicalUrlWithoutLocale}`
   }
 
-  redirect(`${newUrl}`)
+  redirect(`${newUrl}?token=${token}`)
 }

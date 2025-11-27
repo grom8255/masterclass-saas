@@ -8,6 +8,7 @@ interface OptimizelyFetchOptions {
   cache?: RequestCache
   preview?: boolean
   cacheTag?: string
+  previewToken?: string
 }
 
 interface OptimizelyFetch<Variables> extends OptimizelyFetchOptions {
