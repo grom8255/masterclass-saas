@@ -28,13 +28,19 @@ const optimizelyFetch = async <Response, Variables = object>({
   cache = 'force-cache',
   preview,
   cacheTag,
+  previewToken
 }: OptimizelyFetch<Variables>): Promise<
   GraphqlResponse<Response> & { headers: Headers }
 > => {
   const configHeaders = headers ?? {}
 
   if (preview) {
-    configHeaders.Authorization = `Basic ${process.env.OPTIMIZELY_PREVIEW_SECRET}`
+    if (previewToken) {
+      configHeaders.Authorization = `Bearer ${previewToken}`
+    }
+    else {
+      configHeaders.Authorization = `Basic ${process.env.OPTIMIZELY_PREVIEW_SECRET}`
+    }
     cache = 'no-store'
   }
   const cacheTags = ['optimizely-content']
