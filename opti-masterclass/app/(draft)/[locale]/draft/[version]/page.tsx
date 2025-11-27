@@ -12,6 +12,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function HomePage(props: {
   params: Promise<{ locale: string; version: string }>
+  searchParams: Promise<{ token: string }>
 }) {
   const isDraftModeEnabled = await checkDraftMode()
   if (!isDraftModeEnabled) {
@@ -19,10 +20,11 @@ export default async function HomePage(props: {
   }
 
   const { locale, version } = await props.params
+  const { token } = await props.searchParams
   const locales = getValidLocale(locale)
   const pageResponse = await optimizely.GetPreviewStartPage(
     { locales, version },
-    { preview: true }
+    { preview: true, previewToken: token }
   )
   const startPage = pageResponse.data?.StartPage?.item
   const blocks = (startPage?.blocks ?? []).filter(

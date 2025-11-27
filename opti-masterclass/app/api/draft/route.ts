@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
   if (!content) {
     return new NextResponse('Bad Request', { status: 400 })
   }
-  ;(await draftMode()).enable()
+  ; (await draftMode()).enable()
   let newUrl = ''
   if (content.__typename === '_Experience') {
     newUrl = `/${loc}/draft/${ver}/experience/${key}`
