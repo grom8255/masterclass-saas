@@ -24,7 +24,7 @@ export default async function HomePage(props: {
     { locales, version },
     { preview: true }
   )
-  const startPage = pageResponse.data?.StartPage?.items?.[0]
+  const startPage = pageResponse.data?.StartPage?.item
   const blocks = (startPage?.blocks ?? []).filter(
     (block) => block !== null && block !== undefined
   )

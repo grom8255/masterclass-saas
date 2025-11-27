@@ -1,14 +1,16 @@
-// app/(site)/[locale]/[slug]/page.tsx
+// app/[locale]/[slug]/page.tsx
 import ContentAreaMapper from '@/components/content-area/mapper'
+import VisualBuilderExperienceWrapper from '@/components/visual-builder/wrapper'
 import { optimizely } from '@/lib/optimizely/fetch'
+import { SafeVisualBuilderExperience } from '@/lib/optimizely/types/experience'
 import {
   getValidLocale,
   mapPathWithoutLocale,
 } from '@/lib/optimizely/utils/language'
-import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 import { generateAlternates } from '@/lib/utils/metadata'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; slug?: string }>
@@ -25,14 +27,14 @@ export async function generateMetadata(props: {
     return {}
   }
 
-  const page = data?.CMSPage?.items?.[0]
+  const page = data?.CMSPage?.item
   if (!page) {
     const experienceData = await optimizely.GetVisualBuilderBySlug({
       locales: [locales],
       slug: formattedSlug,
     })
 
-    const experience = experienceData.data?.SEOExperience?.items?.[0]
+    const experience = experienceData.data?.SEOExperience?.item
 
     if (experience) {
       return {
@@ -54,11 +56,28 @@ export async function generateMetadata(props: {
   }
 }
 
-
 export async function generateStaticParams() {
   try {
     const pageTypes = ['CMSPage', 'SEOExperience']
     const pathsResp = await optimizely.AllPages({ pageType: pageTypes })
+    const paths = pathsResp.data?._Content?.items ?? []
+    const filterPaths = paths.filter(
+      (path) => path && path._metadata?.url?.default !== null
+    )
+    const uniquePaths = new Set<string>()
+    filterPaths.forEach((path) => {
+      const cleanPath = mapPathWithoutLocale(
+        path?._metadata?.url?.default ?? ''
+      )
+      uniquePaths.add(cleanPath)
+    })
+
+    return Array.from(uniquePaths).map((slug) => ({
+      slug,
+    }))
+  } catch (e) {
+    console.error(e)
+    return []
   }
 }
 
@@ -74,13 +93,13 @@ export default async function CmsPage(props: {
     slug: formattedSlug,
   })
 
-  if (errors || !data?.CMSPage?.items?.[0]) {
+  if (errors || !data?.CMSPage?.item?._modified) {
     const experienceData = await optimizely.GetVisualBuilderBySlug({
       locales: [locales],
       slug: formattedSlug,
     })
 
-    const experience = experienceData.data?.SEOExperience?.items?.[0] as
+    const experience = experienceData.data?.SEOExperience?.item as
       | SafeVisualBuilderExperience
       | undefined
 
@@ -94,7 +113,8 @@ export default async function CmsPage(props: {
 
     return notFound()
   }
-  const page = data.CMSPage.items[0]
+
+  const page = data.CMSPage.item
   const blocks = (page?.blocks ?? []).filter(
     (block) => block !== null && block !== undefined
   )

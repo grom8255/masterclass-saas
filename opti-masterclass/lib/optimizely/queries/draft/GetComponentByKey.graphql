@@ -8,9 +8,8 @@ query GetComponentByKey($locales: [Locales], $key: String, $version: String) {
       _or: { _metadata: { version: { eq: $version } } }
     }
   ) {
-    items {
+    item {
       ...ItemsInContentArea
     }
   }
 }
- 

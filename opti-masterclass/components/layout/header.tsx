@@ -14,7 +14,7 @@ export async function Header({ locale }: { locale: string }) {
     { locale: locales },
     { cacheTag: 'optimizely-header' }
   )
-  const header = data?.Header?.items?.[0]
+  const header = data?.Header?.item
   if (!header) {
     return null
   }

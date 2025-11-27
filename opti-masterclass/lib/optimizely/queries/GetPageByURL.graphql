@@ -5,7 +5,7 @@ query getPageByURL($locales: [Locales], $slug: String) {
     locale: $locales
     where: { _metadata: { url: { default: { eq: $slug } } } }
   ) {
-    items {
+    item {
       title
       shortDescription
       keywords

@@ -29,19 +29,19 @@ export async function GET(request: NextRequest) {
     return new NextResponse(errorsMessage, { status: 401 })
   }
 
-  const content = response.data?._Content?.items?.[0]
+  const content = response.data?._Content?.item
   if (!content) {
     return new NextResponse('Bad Request', { status: 400 })
   }
-  (await draftMode()).enable()
+  ;(await draftMode()).enable()
   let newUrl = ''
   if (content.__typename === '_Experience') {
     newUrl = `/${loc}/draft/${ver}/experience/${key}`
   } else if (content.__typename === '_Component') {
     newUrl = `/${loc}/draft/${ver}/block/${key}`
   } else {
-    // In hierarchical routing, the Start Page in Optimizely does not use "/" as its URL 
-    // but instead has a path like "/start-page". To normalize the URL and make it relative 
+    // In hierarchical routing, the Start Page in Optimizely does not use "/" as its URL
+    // but instead has a path like "/start-page". To normalize the URL and make it relative
     // to the Start Page, we remove the OPTIMIZELY_START_PAGE_URL prefix from the hierarchical URL.
     const hierarchicalUrl = content?._metadata?.url?.hierarchical?.replace(
       process.env.OPTIMIZELY_START_PAGE_URL ?? '',

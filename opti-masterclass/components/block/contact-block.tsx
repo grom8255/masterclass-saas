@@ -15,7 +15,9 @@ export default function ContactBlock({
       <Card className="mx-auto max-w-xl">
         <CardHeader>
           <CardTitle data-epi-edit="title">{title}</CardTitle>
-          <p data-epi-edit="title" className="text-muted-foreground">{description}</p>
+          <p data-epi-edit="title" className="text-muted-foreground">
+            {description}
+          </p>
         </CardHeader>
         <CardContent>
           <form className="space-y-6">
